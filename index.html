@@ -9,10 +9,19 @@
 </head>
 <body>
     <div class="box">
-        <div class="score-box"></div>
+        <div class="score-box">
+            <div class="playerName nameSize">
+                <p>Player Score: <p id="pScore">0</p></p>
+            </div>
+            <div class="computerName nameSize">
+                <p>Computer Score: <p id="cScore">0</p></p>
+            </div>
+        </div>
         <div class="game-box">
             <div class="cpu-box"></div>
-            <div class="result-box"></div>
+            <div class="result-box">
+                <p id="matchConfirmation">The result is...</p>
+            </div>
             <div class="player-box">
                 <button class="rock box" id="rock"></button>
                 <button class="paper box" id="paper"></button>

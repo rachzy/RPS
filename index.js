@@ -6,27 +6,26 @@ let scissors = document.getElementById("scissors");
 let start = document.getElementById("start");
 let computer;
 let player;
-let computerScore;
-let playerScore;
+let computerScore = 0;
+let playerScore = 0;
 
-/*function computerSelection() {
-    const array = new Uint16Array(1);
-    let computer;
-    self.crypto.getRandomValues(array);
-    for (const num of array) {
-        console.log(num);
-        if (num > 0 && num < 50 || num > 150 && num < 200) {
-            computer = "rock";
-            console.log(computer);
-        } else if (num > 50 && num < 150 || num > 200 && num < 250) {
-            computer = "paper";
-            console.log(computer);
-        } else if (num > 0 && num < 50 || num > 250 && num < 300) {
-            computer = "scissors";
-            console.log(computer);
-        }
+function score() {
+    if (playerScore >= 2) {
+        document.getElementById("rock").disabled = true;
+        document.getElementById("paper").disabled = true;
+        document.getElementById("scissors").disabled = true;
+        document.getElementById("matchConfirmation").style.color = "white";
+        document.getElementById("matchConfirmation").style.backgroundColor = "black";
+        document.getElementById("matchConfirmation").innerText = "Player Won, Click on Restart to play again";
+    } else if (computerScore >= 2) {
+        document.getElementById("rock").disabled = true;
+        document.getElementById("paper").disabled = true;
+        document.getElementById("scissors").disabled = true;
+        document.getElementById("matchConfirmation").style.color = "white";
+        document.getElementById("matchConfirmation").style.backgroundColor = "black";
+        document.getElementById("matchConfirmation").innerText = "Computer Won, Click on Restart to play again";
     }
-};*/
+};
 
 function computerSelection() {
     computer = Math.floor(Math.random() * RPS.length);
@@ -40,6 +39,7 @@ function computerSelection() {
         computer = "scissors";
         console.log(computer);
     }
+    score();
     return computer;
 };
 
@@ -72,42 +72,32 @@ function playerSelection() {
 function compareResult() {
     if(player === "") {   
     } else if (player === RPS[0] && computer === RPS[2]) {
-        console.log(`Player won because ${player} beats ${computer}`);
+        document.getElementById("matchConfirmation").innerText =`Player won because ${player} beats ${computer}`;
         playerScore++;
+        document.getElementById("pScore").innerText = playerScore;
     } else if (player === RPS[1] && computer === RPS[0]) {
-        console.log(`Player won because ${player} beats ${computer}`);
+        document.getElementById("matchConfirmation").innerText =`Player won because ${player} beats ${computer}`;
         playerScore++;
+        document.getElementById("pScore").innerText = playerScore;
     } else if (player === RPS[2] && computer === RPS[1]) {
-        console.log(`Player won because ${player} beats ${computer}`);
+        document.getElementById("matchConfirmation").innerText =`Player won because ${player} beats ${computer}`;
         playerScore++;
+        document.getElementById("pScore").innerText = playerScore;
     } else if (player === computer) {
-        console.log(`Tie because ${player} = ${computer}`);
+        document.getElementById("matchConfirmation").innerText = `Tie because ${player} = ${computer}`;
     } else {
-        console.log(`Computer won because ${computer} beats ${player}`);
+        document.getElementById("matchConfirmation").innerText = `Computer won because ${computer} beats ${player}`;
         computerScore++;
+        document.getElementById("cScore").innerText = computerScore;
     }
-};
-
-function score() {
-    if(playerScore >= 3) {
-        delete rock;
-        delete paper;
-        delete scissors;
-        console.log("Player Won, Click on Restart")
-    } else if (computerScore >= 3) {
-        delete rock;
-        delete paper;
-        delete scissors;
-        console.log("Computer Won, Click on Restart")
-    }
+    return playerScore, computerScore;
 };
 
 function game() {
-    //playerSelection();
-    //compareResult();
     function demo4() {
         alert("Select Rock, Paper or Scrissors to start");
         playerSelection();
+        //score();
     }
     if(start.addEventListener("click", demo4)) {
     }
