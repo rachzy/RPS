@@ -10,14 +10,14 @@ let computerScore = 0;
 let playerScore = 0;
 
 function score() {
-    if (playerScore >= 2) {
+    if (playerScore === 3) {
         document.getElementById("rock").disabled = true;
         document.getElementById("paper").disabled = true;
         document.getElementById("scissors").disabled = true;
         document.getElementById("matchConfirmation").style.color = "white";
         document.getElementById("matchConfirmation").style.backgroundColor = "black";
         document.getElementById("matchConfirmation").innerText = "Player Won, Click on Restart to play again";
-    } else if (computerScore >= 2) {
+    } else if (computerScore === 3) {
         document.getElementById("rock").disabled = true;
         document.getElementById("paper").disabled = true;
         document.getElementById("scissors").disabled = true;
@@ -97,7 +97,6 @@ function game() {
     function demo4() {
         alert("Select Rock, Paper or Scrissors to start");
         playerSelection();
-        //score();
     }
     if(start.addEventListener("click", demo4)) {
     }
