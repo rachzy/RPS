@@ -29,7 +29,7 @@ let player = {
 
 function score() {
   //Don't execute this function unless one of the player have already won the game
-  if (player.score < 3 && computer.score < 3) return;
+  if (player.score < 4 && computer.score < 4) return;
 
   rock.disabled = true;
   paper.disabled = true;
