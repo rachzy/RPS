@@ -1,105 +1,107 @@
-const RPS = ['rock', 'paper', 'scissors'];
+const RPS = ["rock", "paper", "scissors"];
 
-let rock = document.getElementById("rock");
-let paper = document.getElementById("paper");
-let scissors = document.getElementById("scissors");
-let start = document.getElementById("start");
-let computer;
-let player;
-let computerScore = 0;
-let playerScore = 0;
+const [rock, paper, scissors] = [
+  document.querySelector("#rock"),
+  document.querySelector("#paper"),
+  document.querySelector("#scissors"),
+];
+
+//Select every element that has the class "choice-box" in it,
+// and create an Array with all those elements
+const choiceBoxes = document.querySelectorAll(".choice-box");
+
+//Same with "score" divs
+const scores = document.querySelectorAll(".score");
+
+const start = document.querySelector("#start");
+const matchConfirmation = document.querySelector("#matchConfirmation");
+
+let computer = {
+  name: "Computer",
+  currentChoice: "",
+  score: 0,
+};
+let player = {
+  name: "Player",
+  currentChoice: "",
+  score: 0,
+};
 
 function score() {
-    if (playerScore === 3) {
-        document.getElementById("rock").disabled = true;
-        document.getElementById("paper").disabled = true;
-        document.getElementById("scissors").disabled = true;
-        document.getElementById("matchConfirmation").style.color = "white";
-        document.getElementById("matchConfirmation").style.backgroundColor = "black";
-        document.getElementById("matchConfirmation").innerText = "Player Won, Click on Restart to play again";
-    } else if (computerScore === 3) {
-        document.getElementById("rock").disabled = true;
-        document.getElementById("paper").disabled = true;
-        document.getElementById("scissors").disabled = true;
-        document.getElementById("matchConfirmation").style.color = "white";
-        document.getElementById("matchConfirmation").style.backgroundColor = "black";
-        document.getElementById("matchConfirmation").innerText = "Computer Won, Click on Restart to play again";
-    }
-};
+  //Don't execute this function unless one of the player have already won the game
+  if (player.score < 3 && computer.score < 3) return;
+
+  rock.disabled = true;
+  paper.disabled = true;
+  scissors.disabled = true;
+  matchConfirmation.style.color = "white";
+  matchConfirmation.style.backgroundColor = "black";
+
+  let winner = player.score >= 3 ? "Player" : "Computer"; //
+
+  matchConfirmation.textContent = `${winner} Won, Click on Restart to play again`;
+}
+
+const choices = ["rock", "paper", "scissors"];
 
 function computerSelection() {
-    computer = Math.floor(Math.random() * RPS.length);
-    if (computer === 0) {
-        computer = "rock";
-        console.log(computer);
-    } else if (computer === 1) {
-        computer = "paper";
-        console.log(computer);
-    } else if (computer === 2) {
-        computer = "scissors";
-        console.log(computer);
-    }
-    score();
-    return computer;
-};
-
-function playerSelection() {
-    function demo1() {
-        player = "rock";
-        console.log(player);
-        computerSelection();
-        compareResult();
-    }
-    function demo2() {
-        player = "paper";
-        console.log(player);
-        computerSelection();
-        compareResult();
-    }
-    function demo3() {
-        player = "scissors";
-        console.log(player);
-        computerSelection();
-        compareResult();
-    }
-
-    if(rock.addEventListener("click", demo1)) {
-    } else if(paper.addEventListener("click", demo2)) {
-    } else if(scissors.addEventListener("click", demo3)) {
-    }
-};
+  computerChoice = Math.floor(Math.random() * RPS.length);
+  computer.currentChoice = choices[computerChoice];
+}
 
 function compareResult() {
-    if(player === "") {   
-    } else if (player === RPS[0] && computer === RPS[2]) {
-        document.getElementById("matchConfirmation").innerText =`Player won because ${player} beats ${computer}`;
-        playerScore++;
-        document.getElementById("pScore").innerText = playerScore;
-    } else if (player === RPS[1] && computer === RPS[0]) {
-        document.getElementById("matchConfirmation").innerText =`Player won because ${player} beats ${computer}`;
-        playerScore++;
-        document.getElementById("pScore").innerText = playerScore;
-    } else if (player === RPS[2] && computer === RPS[1]) {
-        document.getElementById("matchConfirmation").innerText =`Player won because ${player} beats ${computer}`;
-        playerScore++;
-        document.getElementById("pScore").innerText = playerScore;
-    } else if (player === computer) {
-        document.getElementById("matchConfirmation").innerText = `Tie because ${player} = ${computer}`;
-    } else {
-        document.getElementById("matchConfirmation").innerText = `Computer won because ${computer} beats ${player}`;
-        computerScore++;
-        document.getElementById("cScore").innerText = computerScore;
-    }
-    return playerScore, computerScore;
-};
+  //Before doing anything, compare if both choices are the same.
+  if (player.currentChoice === computer.currentChoice) {
+    //If they are, return and no one wins
+    return (matchConfirmation.textContent = "It's a tie!");
+  }
+
+  let winner, loser; //Variables that will receive the winner's and loser's Objects
+
+  //Get the winner
+  if (
+    (player.currentChoice === "stone" && computer.currentChoice !== "paper") ||
+    (player.currentChoice === "paper" && computer.currentChoice !== "scissors") ||
+    (player.currentChoice === "scissors" && computer.currentChoice !== "stone")
+  ) {
+    //Block if the player won
+    player.score++;
+    winner = player;
+    loser = computer;
+  } else {
+    //Block if computer won
+    computer.score++;
+    winner = computer;
+    loser = player;
+  }
+
+  //Sets the score element of the winner
+  scores.forEach((score) => {
+    const {id} = score;
+    if(id !== winner.name.toLowerCase()) return;
+    score.textContent = winner.score;
+  })
+
+  matchConfirmation.textContent = `${winner.name} won because ${winner.currentChoice} beats ${loser.currentChoice}`;
+
+  score();
+}
 
 function game() {
-    function demo4() {
-        alert("Select Rock, Paper or Scrissors to start");
-        playerSelection();
-    }
-    if(start.addEventListener("click", demo4)) {
-    }
-};
+  start.addEventListener("click", () => {
+    alert("Select Rock, Paper or Scrissors to start");
+  });
+
+  choiceBoxes.forEach((choiceBox) => {
+    choiceBox.addEventListener("click", (e) => {
+      const { id } = e.target; //Get the value of that button by it's id
+      //EXAMPLE: If the button ID is "rock", then that button corresponds to the rock button
+
+      player.currentChoice = id; //Set the player currentChoice to the value of that button
+      computerSelection();
+      compareResult();
+    });
+  });
+}
 
 game();
