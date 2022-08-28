@@ -1,0 +1,71 @@
+.box {
+    width: 500px;
+    height: 500px;
+}
+
+.score-box {
+    width: 500px;
+    height: 30px;
+    background-color: blue;
+}
+
+.game-box {
+    width: 500px;
+    height: 400px;
+    background-color: red;
+}
+
+.cpu-box {
+    width: 500px;
+    height: 100px;
+    background-color: green;
+}
+
+.result-box {
+    width: 500px;
+    height: 100px;
+}
+
+.player-box {
+    width: 500px;
+    height: 200px;
+    background-color: brown;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.box {
+    width: 100px;
+    height: 100px;
+    background-color: black;
+}
+
+.menu-box {
+    width: 500px;
+    height: 70px;
+    background-color: blueviolet;
+    display: flex;
+}
+
+.menu-box button {
+    border-style: none;
+}
+
+.menu-box button:active {
+    background-color: rgb(235, 152, 0);
+}
+
+.start-box,
+.restart-box {
+    width: 250px;
+    height: 70px;
+}
+
+.start-box {
+    background-color: orange;
+}
+
+.restart-box {
+    background-color: pink;
+}
