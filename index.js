@@ -9,15 +9,16 @@ let player;
 let computerScore = 0;
 let playerScore = 0;
 
+/*
 function score() {
-    if (playerScore === 3) {
+    if (playerScore === 4) {
         document.getElementById("rock").disabled = true;
         document.getElementById("paper").disabled = true;
         document.getElementById("scissors").disabled = true;
         document.getElementById("matchConfirmation").style.color = "white";
         document.getElementById("matchConfirmation").style.backgroundColor = "black";
         document.getElementById("matchConfirmation").innerText = "Player Won, Click on Restart to play again";
-    } else if (computerScore === 3) {
+    } else if (computerScore === 4) {
         document.getElementById("rock").disabled = true;
         document.getElementById("paper").disabled = true;
         document.getElementById("scissors").disabled = true;
@@ -26,6 +27,7 @@ function score() {
         document.getElementById("matchConfirmation").innerText = "Computer Won, Click on Restart to play again";
     }
 };
+*/
 
 function computerSelection() {
     computer = Math.floor(Math.random() * RPS.length);
